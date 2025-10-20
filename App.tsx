@@ -20,6 +20,8 @@ import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navig
 import { Picker } from "@react-native-picker/picker";
 import { RootStackParamList, MenuItem } from "./type";
 
+const RNPicker: any = Picker;
+
 //adds the menu screen to the app
 function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScreen">) {
 
@@ -99,9 +101,9 @@ function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScree
           <View style={styles.pickerWrapper}>
           <Text style={styles.label}>Course</Text>
           <View style={styles.pickerContainer}>
-            <Picker
+            <RNPicker
             selectedValue={course}
-            onValueChange={(value) => setCourse(value)}
+            onValueChange={(value: any) => setCourse(String(value))}
             mode="dropdown"
             dropdownIconColor="#000000"
             style={styles.pickerStyle}
@@ -111,7 +113,7 @@ function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScree
               <Picker.Item label="Starter" value="Starter" />
               <Picker.Item label="Main" value="Main" />
               <Picker.Item label="Dessert" value="Dessert" />
-            </Picker>
+            </RNPicker>
           </View>
         </View>
 
