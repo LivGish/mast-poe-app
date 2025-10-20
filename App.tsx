@@ -6,8 +6,6 @@ import {
   FlatList,
   TextInput,
   TouchableOpacity,
-  SafeAreaView,
-  Image,
   Alert,
   Keyboard,
   ScrollView,
@@ -15,12 +13,11 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Picker } from "@react-native-picker/picker";
 import { RootStackParamList, MenuItem } from "./type";
-
-const RNPicker: any = Picker;
 
 //adds the menu screen to the app
 function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScreen">) {
@@ -67,6 +64,9 @@ function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScree
     }
   };
 
+  console.log('course:', typeof course, course);
+  console.log('price:', typeof price, price);
+
   return (
     //makes the view shift up when the keyboard appears
     <KeyboardAvoidingView
@@ -101,7 +101,7 @@ function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScree
           <View style={styles.pickerWrapper}>
           <Text style={styles.label}>Course</Text>
           <View style={styles.pickerContainer}>
-            <RNPicker
+            <Picker
             selectedValue={course}
             onValueChange={(value: any) => setCourse(String(value))}
             mode="dropdown"
@@ -113,7 +113,7 @@ function MenuScreen(props: NativeStackScreenProps<RootStackParamList, "MenuScree
               <Picker.Item label="Starter" value="Starter" />
               <Picker.Item label="Main" value="Main" />
               <Picker.Item label="Dessert" value="Dessert" />
-            </RNPicker>
+            </Picker>
           </View>
         </View>
 
@@ -188,6 +188,28 @@ function HomeScreen(props: NativeStackScreenProps<RootStackParamList, "HomeScree
     </SafeAreaView>
   );
 }
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen
+          name="HomeScreen"
+          component={HomeScreen}
+          options={{ title: "Menu List" }}
+        />
+        <Stack.Screen
+          name="MenuScreen"
+          component={MenuScreen}
+          options={{ title: "Add Menu Item" }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
 
 const styles = StyleSheet.create({
  
